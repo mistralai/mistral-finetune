@@ -1,0 +1,30 @@
+# data
+data:
+  instruct_data: ""  # Fill
+  data: ""  # Optionally fill with pretraining data 
+  eval_instruct_data: ""  # Optionally fill
+
+# model
+model_id_or_path: ""  # Change to downloaded path
+lora:
+  rank: 64
+
+# optim
+seq_len: 32768
+batch_size: 1
+max_steps: 300
+optim:
+  lr: 6.e-5
+  weight_decay: 0.1
+  pct_start: 0.05
+
+# other
+seed: 0
+log_freq: 1
+eval_freq: 100
+no_eval: False
+ckpt_freq: 100
+
+ckpt_only_lora: True  # save only trained LoRA adapters. Set to `False` to merge LoRA adapter into the base model and save full fine-tuned model
+
+run_dir: ""  # Fill

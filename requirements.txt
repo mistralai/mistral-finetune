@@ -1,0 +1,11 @@
+fire
+simple-parsing
+pyyaml
+mistral-common>=1.1.0
+safetensors
+tensorboard
+tqdm
+
+torch==2.2
+triton==2.2
+xformers==0.0.24

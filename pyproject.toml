@@ -1,0 +1,51 @@
+[tool.black]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+line-length = 88
+
+[tool.isort]
+known_third_party = []
+line_length = 88
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+follow_imports = "normal"
+
+[tool.ruff]
+lint.select = ["E", "F", "W", "C90", "I", "C4", "PT", "RSE", "TID", "TCH", "FLY", "NPY", "RUF", "T10"]
+line-length = 88
+lint.ignore = ["E501"]
+target-version = "py38"
+exclude = [".git","__pycache__",".vscode",".mypy_cache"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 20
+
+[tool.pytest.ini_options]
+python_classes = [
+  "!TestConfig",
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+    "ignore::ImportWarning",
+    "ignore::DeprecationWarning:pkg_resources",
+    "ignore::DeprecationWarning:wandb",
+    "ignore::DeprecationWarning:torch.utils.tensorboard",
+    "ignore::UserWarning",
+]
+testpaths = []
+addopts = "--ignore=third_party --ignore=tokens"
