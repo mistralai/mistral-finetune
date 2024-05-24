@@ -76,7 +76,7 @@ You can build two types of data files:
 
 ### _Pretrain_:
 
-Pretrain data correpsodns to plain text data stored in the `"text"` key. E.g:
+Pretrain data corresponds to plain text data stored in the `"text"` key. E.g:
 
 ```jsonl
 {"text": "Text contained in document n°1"}
@@ -141,7 +141,7 @@ Currently two different types of instruction following data are supported:
 }
 ```
 
-- _Function calling_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"role"` and `"role"` keys. `"role"` is a string being one of "user", "assistant", "system_prompt", or "tool". The loss will only be computed if "role" == "assistant".
+- _Function calling_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"role"` and `"content"` or `"tool_calls"` keys. `"role"` is a string being one of "user", "assistant", "system_prompt", or "tool". The loss will only be computed if "role" == "assistant".
 
 **Note**: In function calling the `"id"` of `"tool_calls"` and the `"tool_call_id"` are randomly generated strings of exactly 9 chars. We recommend to generate this automatically 
 in a data preparation script as is done [here](https://github.com/mistralai/mistral-finetune/blob/a612d665897a28a3a7c44c98f88e1f7775f81a1d/utils/reformat_data_glaive.py#L74).
