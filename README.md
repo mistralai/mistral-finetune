@@ -284,10 +284,10 @@ python -m utils.validate_data --train_yaml example/7B.yaml
 Upon completion you should see an error report with many of the following errors:
 
 ```
-The data in line 1412 of dataset /mnt/vast/home/patrick/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
-The data in line 1413 of dataset /mnt/vast/home/patrick/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
-The data in line 1414 of dataset /mnt/vast/home/patrick/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
-The data in line 1415 of dataset /mnt/vast/home/patrick/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
+The data in line 1412 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
+The data in line 1413 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
+The data in line 1414 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
+The data in line 1415 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
 ```
 
 Many conversations seem to end with the 'user' role which is unnecessary as we only train on 'assistant' messages and would thus would unnecessarily process data.
@@ -324,13 +324,13 @@ Train States
        "epochs": "5.21",
        "max_steps": 500,
        "data_tokens_per_dataset": {
-           "/mnt/vast/home/patrick/data/ultrachat_chunk_train.jsonl": "25169147.0"
+           "/Users/johndoe/data/ultrachat_chunk_train.jsonl": "25169147.0"
        },
        "train_tokens_per_dataset": {
-           "/mnt/vast/home/patrick/data/ultrachat_chunk_train.jsonl": "131072000.0"
+           "/Users/johndoe/data/ultrachat_chunk_train.jsonl": "131072000.0"
        },
        "epochs_per_dataset": {
-           "/mnt/vast/home/patrick/data/ultrachat_chunk_train.jsonl": "5.2"
+           "/Users/johndoe/data/ultrachat_chunk_train.jsonl": "5.2"
        }
    },
 }
