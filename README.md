@@ -76,7 +76,7 @@ You can build two types of data files:
 
 ### _Pretrain_:
 
-Pretrain data correpsodns to plain text data stored in the `"text"` key. E.g:
+Pretrain data corresponds to plain text data stored in the `"text"` key. E.g:
 
 ```jsonl
 {"text": "Text contained in document n°1"}
