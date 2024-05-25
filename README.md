@@ -290,7 +290,7 @@ The data in line 1414 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl 
 The data in line 1415 of dataset /Users/johndoe/data/ultrachat_chunk_eval.jsonl is incorrectly formated.Expected last role to be one of: [assistant] but got user
 ```
 
-Many conversations seem to end with the 'user' role which is unnecessary as we only train on 'assistant' messages and would thus would unnecessarily process data.
+Many conversations seem to end with the 'user' role which is unnecessary as we only train on 'assistant' messages and thus would unnecessarily process data.
 
 You can make use of [./utils/reformat_data.py](https://github.com/mistralai/mistral-finetune/blob/main/utils/reformat_data.py) to correct the data:
 
