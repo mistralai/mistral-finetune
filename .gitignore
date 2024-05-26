@@ -137,9 +137,6 @@ venv.bak/
 .spyderproject
 .spyproject
 
-# Rope project settings
-.ropeproject
-
 # mkdocs documentation
 /site
 
@@ -170,15 +167,5 @@ cython_debug/
 # VSCode
 .vscode/
 
-# Models
-.rt-model-*
-.sbatch.sh
-
 # Eval logs
 eval/eval-*
-
-# Tokenizer stuff
-scripts/tokenizer/dummy.model
-scripts/tokenizer/dummy.vocab
-scripts/tokenizer/user_symbols_reversed.txt
-
