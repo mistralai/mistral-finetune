@@ -46,7 +46,7 @@ class BatchList:
     x: List[List[int]] = dataclasses.field(default_factory=list)
     y: List[List[int]] = dataclasses.field(default_factory=list)
     sizes: List[List[int]] = dataclasses.field(default_factory=list)
-    y_mask: List[Optional[List[int]]] = dataclasses.field(default_factory=list)
+    y_mask: List[List[bool]] = dataclasses.field(default_factory=list)
 
     def __post_init__(self):
         assert self.x == [], "`BatchList` has to be empty at init."
@@ -57,7 +57,7 @@ class BatchList:
     def __len__(self) -> int:
         return len(self.x)
 
-    def add(self, x: List[int], y: List[int], sizes: List[int], y_mask: Optional[List[int]] = None):
+    def add(self, x: List[int], y: List[int], sizes: List[int], y_mask: List[bool]):
         self.x.append(x)
         self.y.append(y)
         self.sizes.append(sizes)
@@ -70,16 +70,16 @@ class BatchList:
         self.y_mask = []
 
     @staticmethod
-    def flatten_to_numpy(list_of_lists: List[List[Any]], dtype: np.dtype) -> np.array:
+    def flatten_to_numpy(list_of_lists: List[List[Any]], dtype: type) -> np.ndarray:
         return np.array([el for sublist in list_of_lists for el in sublist], dtype=dtype)
 
     def create_batch(self) -> Batch:
-        x_np: np.array = self.flatten_to_numpy(self.x, dtype=np.int64)
-        y_np: np.array = self.flatten_to_numpy(self.y, dtype=np.int64)
+        x_np: np.ndarray = self.flatten_to_numpy(self.x, dtype=np.int64)
+        y_np: np.ndarray = self.flatten_to_numpy(self.y, dtype=np.int64)
         sizes = sum(self.sizes, [])  # noqa
 
-        y_mask_np: Optional[np.array] = self.flatten_to_numpy(self.y_mask, dtype=bool)
-        y_mask_np = None if y_mask_np.all() else y_mask_np
+        y_mask_flatten = self.flatten_to_numpy(self.y_mask, dtype=bool)
+        y_mask_np: Optional[np.ndarray] = None if y_mask_flatten.all() else y_mask_flatten
 
         return Batch(x_np, y_np, sizes, y_mask_np)
 

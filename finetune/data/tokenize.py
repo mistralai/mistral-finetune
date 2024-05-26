@@ -88,9 +88,7 @@ def get_pretrain_sample(data: Dict[str, Any]) -> str:
 
 
 def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
-    messages: List[
-        SystemMessage | UserMessage | FinetuningAssistantMessage | ToolMessage
-    ] = []
+    messages: List[Union[SystemMessage, UserMessage, FinetuningAssistantMessage, ToolMessage]] = []
     # optional data fields that might be set
     available_tools: Optional[List[Tool]] = data.get("available_tools")
     system_prompt = data.get("system_prompt")

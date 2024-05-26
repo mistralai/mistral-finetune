@@ -135,7 +135,7 @@ class MetricsLogger:
             import wandb
 
             if wandb_args.key is not None:
-                wandb.login(key=wandb.key)
+                wandb.login(key=wandb_args.key)
             if wandb_args.offline:
                 os.environ["WANDB_MODE"] = "offline"
             if wandb.run is None:

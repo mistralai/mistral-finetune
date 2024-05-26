@@ -57,7 +57,7 @@ def test_integration(enable_lora):
             max_steps=4,
             num_microbatches=1,
             lora=LoraArgs(enable=enable_lora),
-            ckpt_only_lora=enable_lora,
+            save_adapters=enable_lora,
             checkpoint=True,
             no_eval=False,
         )

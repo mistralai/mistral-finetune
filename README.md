@@ -454,7 +454,7 @@ Generally, a training configuration should fill the following parameters:
 - `eval_freq` defines how often (in steps) to evaluate the model. This specifies the interval at which the model is evaluated on the validation set.
 - `no_eval` is a flag to enable or disable intermediate evaluation. Setting it to False enables periodic evaluation during training.
 - `ckpt_freq` defines how often (in steps) to save checkpoints. This specifies the interval at which the model's state is saved.
-- `ckpt_only_lora` defines whether to only save the trained LoRA checkpoints or whether the trained LoRA should directly be merged into the base model and saved. **Note**: When setting `ckpt_only_lora=False` make sure that you have enough CPU and GPU memory to save the full model on a single process (this is usually only possible for the 7B model).
+- `save_adapters` defines whether to only save the trained LoRA checkpoints or whether the trained LoRA should directly be merged into the base model and saved. **Note**: When setting `save_adapters=False` make sure that you have enough CPU and GPU memory to save the full model on a single process (this is usually only possible for the 7B model).
 - `wandb.key` is used to pass your Weights & Biases (wandb) API key for logging. This allows you to log training metrics to the wandb dashboard.
 - `wandb.project` defines the wandb project name. This is where the training run will be logged in the wandb interface.
 

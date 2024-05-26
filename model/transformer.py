@@ -1,6 +1,6 @@
 import operator
 from functools import partial, reduce
-from typing import Iterable, List, Optional
+from typing import Iterable, List, Optional, Union
 
 import torch
 import torch.distributed.algorithms._checkpoint.checkpoint_wrapper as torch_ckpt
@@ -22,8 +22,8 @@ def repeat_kv(keys: torch.Tensor, values: torch.Tensor, repeats: int, dim: int):
 
 def maybe_lora_layer(
     args: ModelArgs, rank: Optional[int] = None
-) -> partial[LoRALinear] | type[nn.Linear]:
-    MaybeLora: partial[LoRALinear] | type[nn.Linear]
+) -> Union[partial[LoRALinear], type[nn.Linear]]:
+    MaybeLora: Union[partial[LoRALinear], type[nn.Linear]]
     if not args.lora.enable:
         return nn.Linear
 
@@ -123,7 +123,7 @@ class TransformerBlock(nn.Module):
         self.dim = args.dim
         self.attention = Attention(args)
 
-        self.feed_forward: MoeLayer | FeedForward
+        self.feed_forward: Union[MoeLayer, FeedForward]
         if args.moe is not None:
             self.feed_forward = MoeLayer(
                 experts=[FeedForward(args=args) for _ in range(args.moe.num_experts)],
