@@ -153,7 +153,7 @@ E.g.:
   "messages": [
     {
       "role": "system",
-      "content": "You are an helpful assistant who has access to the following functions to help the user, you can use the functions if needed"
+      "content": "You are a helpful assistant who has access to the following functions to help the user, you can use the functions if needed"
     },
     {
       "role": "user",
