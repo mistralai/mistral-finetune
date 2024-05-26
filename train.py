@@ -310,7 +310,7 @@ def _train(
             (args.ckpt_freq > 0 and state.step % args.ckpt_freq == 0) or is_last_step
         ):
             checkpointer.save_checkpoint(
-                save_only_lora=args.ckpt_only_lora,
+                save_only_lora=args.save_adapters,
                 dtype=param_dtype,
                 instruct_tokenizer=instruct_tokenizer,
             )

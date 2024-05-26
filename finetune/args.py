@@ -75,7 +75,7 @@ class TrainArgs(Serializable):
 
     # Number of steps between each checkpoint saving. If inferior to 1, only the last checkpoint will be saved.
     ckpt_freq: int = 0
-    ckpt_only_lora: bool = True
+    save_adapters: bool = True
     # If True, no checkpoint will be saved. This is useful for development.
     no_ckpt: bool = False
     num_ckpt_keep: Optional[int] = 3
@@ -110,7 +110,7 @@ class TrainArgs(Serializable):
         if self.model_id_or_path is not None:
             Path(self.model_id_or_path).exists()
 
-        if not self.ckpt_only_lora:
+        if not self.save_adapters:
             logging.warning(
-                "You are have disabled `ckpt_only_lora` and are thus merging the trained LoRA checkpoint into the base model upon checkpointing. This might lead to OOM erros - make sure you have enough CPU and GPU memory."
+                "You are have disabled `save_adapters` and are thus merging the trained LoRA checkpoint into the base model upon checkpointing. This might lead to OOM erros - make sure you have enough CPU and GPU memory."
             )

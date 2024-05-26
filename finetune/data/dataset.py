@@ -29,7 +29,7 @@ from .tokenize import (
 logger = logging.getLogger("dataset")
 
 
-_LOADED_DATASETS: Dict[Path, List[str]] = {}
+_LOADED_DATASETS: Dict[Path, List[TokenSample]] = {}
 
 
 def main_logger_info(message: str) -> None:
@@ -395,7 +395,7 @@ def preload_and_yield(
         assert chunk_dataset is False, "Pretrain data should not have chunking enabled."
 
     main_logger_info(f"Shuffling {jsonl_file} ...")
-    rng.shuffle(tokens_list)
+    rng.shuffle(tokens_list)  # type: ignore
 
     for token_sample in tokens_list:
         yield token_sample

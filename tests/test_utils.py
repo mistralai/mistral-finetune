@@ -41,7 +41,7 @@ def rmf(filename: str) -> None:
         pass
 
 
-def test_runner(
+def runner(
     rank: int, test_func: Callable, deterministic: bool = False, *args: List[Any], **kwargs: Dict[str, Any]
 ) -> None:
     # At this point we're in a new process, torch options need to be set again
@@ -62,7 +62,7 @@ def spawn_for_all_world_sizes(
 
         try:
             torch.multiprocessing.spawn(
-                test_runner,
+                runner,
                 args=(test_func, deterministic, world_size, filename, filename_rpc, *args),
                 nprocs=world_size,
                 join=True,

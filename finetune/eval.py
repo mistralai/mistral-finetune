@@ -59,7 +59,7 @@ def evaluate(
                 seqlens=batch.sizes,
             )
 
-            if y_mask.sum() > 0:
+            if not batch.is_pad_only:
                 eval_loss += compute_loss_with_mask(output, y, y_mask)
 
             assert batch.is_pad_only or y.abs().sum() != 0, "Pad sample is used to compute loss."
