@@ -473,6 +473,27 @@ Assuming your `lora.safetensors` is saved under `$HOME/ultra_chat_test/checkpoin
 mistral-chat /mnt/slow/runs/patrick/mistral-finetune/7B/ --max_tokens 256 --temperature 1.0 --instruct --lora_path $HOME/ultra_chat_test/checkpoints/checkpoint_000300/consolidated/lora.safetensors
 ```
 
+## Adding Weights and Biases (wandb) Support
+
+We have added explicit support for [Weights and Biases](https://www.wandb.com/) to help you monitor and visualize your training runs. This integration allows you to log various metrics and track experiments easily.
+
+### Setting Up Weights and Biases
+
+To use Weights and Biases with `mistral-finetune`, follow these steps:
+
+1. **Install Weights and Biases:**
+
+   Make sure you have the `wandb` library installed. You can install it using pip:
+
+   ```bash
+   pip install wandb
+
+### Viewing Your Logs
+
+Once the training starts, you can monitor the progress in real-time by visiting your wandb project dashboard. All metrics, including training loss, evaluation loss, learning rate, etc., will be logged and visualized.
+
+For more details on how to use wandb, visit the [Weights and Biases documentation](https://docs.wandb.ai/).
+
 ## Model extension
 
 **Important**: Note that one can only fine-tune mistral models that are compatible with the v3 tokenizer which entails that the models have a vocabulary size of 32768 - not 32000. One can however easily extend older version of vocabulary size 32000 to have a vocabulary size of 32768 by using:
