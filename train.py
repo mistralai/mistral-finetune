@@ -50,11 +50,9 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger("train")
 
-
 def main_logger_info(message: str) -> None:
     if get_rank() == 0:
         logger.info(message)
-
 
 def train(config: str):
     args: TrainArgs = TrainArgs.load(config, drop_extra_fields=False)
@@ -64,7 +62,6 @@ def train(config: str):
     with ExitStack() as exit_stack:
         _train(args, exit_stack)
     logger.info("Closed everything!")
-
 
 def _train(
     args: TrainArgs,
@@ -262,7 +259,7 @@ def _train(
         # upcast params for optimizer update
         upcast_mixed_precision(model.parameters(), optim_dtype=optim_dtype)
 
-        # clip gra d norm
+        # clip grad norm
         model.clip_grad_norm_(max_norm=args.max_norm)
 
         # optimizer step
@@ -310,13 +307,12 @@ def _train(
             (args.ckpt_freq > 0 and state.step % args.ckpt_freq == 0) or is_last_step
         ):
             checkpointer.save_checkpoint(
-                save_only_lora=args.save_adapters,
+                save_only_lora=args.ckpt_only_lora,
                 dtype=param_dtype,
                 instruct_tokenizer=instruct_tokenizer,
             )
 
     main_logger_info("done!")
-
 
 if __name__ == "__main__":
     """See README.md for usage."""
