@@ -39,7 +39,7 @@ def extend_model(original_model: Path, extended_model: Path):
     new_vocab_size = tokenizer.n_words
     assert (
         new_vocab_size == 32768
-    ), f"New Tokenzier has vocab_size: {new_vocab_size} but has to be equal to 32768. Make sure to pass a v2 or v3 tokenizer file"
+    ), f"New Tokenizer has vocab_size: {new_vocab_size} but has to be equal to 32768. Make sure to pass a v2 or v3 tokenizer file"
 
     vocabulary_delta = new_vocab_size - original_vocab_size
 
