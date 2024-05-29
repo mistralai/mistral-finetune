@@ -87,7 +87,7 @@ Pretrain data corresponds to plain text data stored in the `"text"` key. E.g:
 
 Currently two different types of instruction following data are supported:
 
-- _Instruct_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"content"` and `"role"` keys. `"role"` is a string being one of "user", "assistant" or "system_prompt". The loss will only be computed if "role" == "assistant". E.g.:
+- _Instruct_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"content"` and `"role"` keys. `"role"` is a string being one of "user", "assistant" or "system". The loss will only be computed if "role" == "assistant". E.g.:
 
 ```jsonl
 {
@@ -141,7 +141,7 @@ Currently two different types of instruction following data are supported:
 }
 ```
 
-- _Function calling_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"role"` and `"content"` or `"tool_calls"` keys. `"role"` is a string being one of "user", "assistant", "system_prompt", or "tool". The loss will only be computed if "role" == "assistant".
+- _Function calling_: conversational data stored in the `"messages"` key in the form of a list. Each list item is a dictionary containing the `"role"` and `"content"` or `"tool_calls"` keys. `"role"` is a string being one of "user", "assistant", "system", or "tool". The loss will only be computed if "role" == "assistant".
 
 **Note**: In function calling the `"id"` of `"tool_calls"` and the `"tool_call_id"` are randomly generated strings of exactly 9 chars. We recommend to generate this automatically 
 in a data preparation script as is done [here](https://github.com/mistralai/mistral-finetune/blob/208b25c0f7299bb78d06cea25b82adee03834319/utils/reformat_data_glaive.py#L74).
