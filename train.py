@@ -262,7 +262,7 @@ def _train(
         # upcast params for optimizer update
         upcast_mixed_precision(model.parameters(), optim_dtype=optim_dtype)
 
-        # clip gra d norm
+        # clip grad norm
         model.clip_grad_norm_(max_norm=args.max_norm)
 
         # optimizer step
