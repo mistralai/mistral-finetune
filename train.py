@@ -50,9 +50,11 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger("train")
 
+
 def main_logger_info(message: str) -> None:
     if get_rank() == 0:
         logger.info(message)
+
 
 def train(config: str):
     args: TrainArgs = TrainArgs.load(config, drop_extra_fields=False)
@@ -62,6 +64,7 @@ def train(config: str):
     with ExitStack() as exit_stack:
         _train(args, exit_stack)
     logger.info("Closed everything!")
+
 
 def _train(
     args: TrainArgs,
@@ -313,6 +316,7 @@ def _train(
             )
 
     main_logger_info("done!")
+
 
 if __name__ == "__main__":
     """See README.md for usage."""
