@@ -14,6 +14,7 @@ logger = logging.getLogger("metrics_logger")
 
 GB = 1024**3
 
+
 def get_train_logs(
     state: TrainState,
     loss: float,
@@ -36,6 +37,7 @@ def get_train_logs(
 
     return metrics
 
+
 def get_eval_logs(
     step: int,
     train_loss: float,
@@ -50,6 +52,7 @@ def get_eval_logs(
     if eval_loss is not None:
         eval_dict["eval_loss"] = eval_loss
     return eval_dict
+
 
 def train_log_msg(
     state: TrainState, logs: Dict[str, Union[float, int]], loss: float
@@ -82,6 +85,7 @@ def train_log_msg(
 
     return " - ".join(parts)
 
+
 def eval_log_msg(logs: Dict[str, Union[float, int]]) -> str:
     parts = []
     for key, fmt, new_name in [
@@ -95,6 +99,7 @@ def eval_log_msg(logs: Dict[str, Union[float, int]]) -> str:
             parts.append(f"{name}: {logs[key]:>{fmt}}")
 
     return " - ".join(parts)
+
 
 class MetricsLogger:
     def __init__(

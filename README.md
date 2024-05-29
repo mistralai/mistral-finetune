@@ -485,9 +485,9 @@ To use Weights and Biases with `mistral-finetune`, follow these steps:
 
    Make sure you have the `wandb` library installed. You can install it using pip:
 
-   ```bash
+```sh
    pip install wandb
-
+```
 ### Viewing Your Logs
 
 Once the training starts, you can monitor the progress in real-time by visiting your wandb project dashboard. All metrics, including training loss, evaluation loss, learning rate, etc., will be logged and visualized.
