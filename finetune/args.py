@@ -64,7 +64,7 @@ class TrainArgs(Serializable):
 
     optim: OptimArgs = field(default_factory=OptimArgs)
     seed: int = 0
-    # Number of steps to accumulate gradients before calling doing an optimizer step.
+    # Number of steps to accumulate gradients before doing an optimizer step.
     num_microbatches: int = 1
 
     seq_len: int = 2048  # Number of tokens per batch per device.
