@@ -147,7 +147,7 @@ def _check_fsdp_logits_and_loss(
         checkpoint=True,
         param_dtype=torch.bfloat16,
     )
-    # By seting equal rank and world_size we can assure that both ranks see the same data and hence the average
+    # By setting equal rank and world_size we can assure that both ranks see the same data and hence the average
     data_loader = get_dataloader(seq_len=seq_len, rank=0, world_size=2)
 
     batch = next(data_loader)
