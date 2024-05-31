@@ -396,7 +396,7 @@ create a reformatting script yourself (mistral-chat or chat-gpt is your best fri
 You can now validate the dataset by setting `data.instruct_data` and `data.eval_instruct_data` to
 `$HOME/data/glaive_train.jsonl` and `$HOME/data/glaive_eval.jsonl` in `example/7B.yaml` respectively.
 
-The reformatted datasets still has some errors which can be removed with `--create_corrected`. For this, make sure to add
+The reformatted datasets still have some errors which can be removed with `--create_corrected`. For this, make sure to add
 `--create_corrected` as follows:
 
 ```
