@@ -10,7 +10,7 @@ class LoRALinear(nn.Module):
         - LoRA: https://arxiv.org/abs/2106.09685
 
     Notes:
-        - Freezing is handled at network level, not layer level.
+        - Freezing is handled at the network level, not the layer level.
         - Scaling factor controls relative importance of LoRA skip
           connection versus original frozen weight. General guidance is
           to keep it to 2.0 and sweep over learning rate when changing
