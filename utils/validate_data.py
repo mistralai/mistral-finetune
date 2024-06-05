@@ -196,7 +196,7 @@ def main(args):
                     try:
                         data = json.loads(line)
                     except ValueError as e:
-                        prefix = f"The data in line {idx + 1} of dataset {dataset} is incorrectly formated."
+                        prefix = f"The data in line {idx + 1} of dataset {dataset} is incorrectly formatted."
                         sub_yaml_data_errors.append(prefix + str(e))
                         continue
 
@@ -218,7 +218,7 @@ def main(args):
                             InvalidMessageStructureException,
                             InvalidToolSchemaException,
                         ) as e:
-                            prefix = f"The data in line {idx + 1} of dataset {dataset} is incorrectly formated."
+                            prefix = f"The data in line {idx + 1} of dataset {dataset} is incorrectly formatted."
                             if isinstance(
                                 e, (ConversationFormatError, FunctionFormatError)
                             ):
@@ -309,7 +309,7 @@ def main(args):
 
             print(error_report)
         else:
-            print("No errors! Data is correctly formated!")
+            print("No errors! Data is correctly formatted!")
 
         if name == "train" and not is_error:
             expected_stats = get_train_stats(
