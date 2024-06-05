@@ -40,7 +40,7 @@ MIN_NUM_JSONL_LINES = 10
 MAX_NUM_JSONL_LINES = 10_000_000
 
 MIN_BYTES = 1_000
-MAX_BYTES = 10_000_000_000  # rougly 10 GB
+MAX_BYTES = 10_000_000_000  # roughly 10 GB
 
 
 def convert_seconds_to_hms(seconds: float) -> str:
