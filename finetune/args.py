@@ -112,5 +112,5 @@ class TrainArgs(Serializable):
 
         if not self.save_adapters:
             logging.warning(
-                "You are have disabled `save_adapters` and are thus merging the trained LoRA checkpoint into the base model upon checkpointing. This might lead to OOM erros - make sure you have enough CPU and GPU memory."
+                "You have disabled `save_adapters` and are thus merging the trained LoRA checkpoint into the base model upon checkpointing. This might lead to OOM errors - make sure you have enough CPU and GPU memory."
             )
