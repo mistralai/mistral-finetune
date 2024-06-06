@@ -207,7 +207,7 @@ def _check_data_loader_dist(
     instruct = InstructArgs(shuffle=False, dynamic_chunk_fn_call=False)
 
     if is_instruct:
-        # at the moment we have to pass some instuction finetuning
+        # at the moment we have to pass some instruction finetuning
         data_args = DataArgs(
             data="",
             instruct_data="tests/fixtures/sample_instruct.jsonl:.1,tests/fixtures/sample_instruct_2.jsonl:.1,tests/fixtures/sample_instruct_3.jsonl:.1",
