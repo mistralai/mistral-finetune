@@ -75,7 +75,7 @@ def reformat_jsonl(input_file):
             if not skip_sample:
                 outfile.write(json.dumps(data) + "\n")
             else:
-                print(f"Skip {idx}th sample")
+                print(f"Skipped {idx}th sample")
 
     os.rename(output_file, input_file)
 
