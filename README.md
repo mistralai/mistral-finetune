@@ -15,7 +15,7 @@ for multi-GPU-single-node training setups, but for smaller models, such as the 7
 > 
 > - The goal of this repository is to provide a simple, guided entrypoint to finetune Mistral models.
 > As such, it is fairly opinionated (especially around data formatting) and does not aim at being exhaustive
-> across multiple model architecture or hardware types.
+> across multiple model architectures or hardware types.
 > For more generic approaches, you can check out some other great projects like 
 > [torchtune](https://pytorch.org/torchtune/stable/overview.html).
 
