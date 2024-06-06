@@ -72,7 +72,7 @@ def verify_size(jsonl_file: Path):
         )
     elif num_lines > MAX_NUM_JSONL_LINES:
         raise ValueError(
-            f"{jsonl_file} has {num_lines} conversation which is more than the maximum amount of allowed per dataset file: {MAX_NUM_JSONL_LINES}. Please make sure that each dataset has no more than {MAX_NUM_JSONL_LINES} conversations."
+            f"{jsonl_file} has {num_lines} conversations which is more than the maximum amount of allowed per dataset file: {MAX_NUM_JSONL_LINES}. Please make sure that each dataset has no more than {MAX_NUM_JSONL_LINES} conversations."
         )
     elif num_bytes > MAX_BYTES:
         raise ValueError(
