@@ -125,7 +125,7 @@ def _check_mixed_precision(
 
         downcast_mixed_precision(model.parameters(), param_dtype=param_dtype)
 
-        # ensure that before new forward pass params are downcasted to param dtype
+        # ensure that before new forward pass params are downcast to param dtype
         for param in model.parameters():
             assert param.dtype == param_dtype
             if param.requires_grad:
