@@ -34,11 +34,11 @@ def get_fsdp_policy(is_lora: bool) -> Callable[[torch.nn.Module], bool]:
     """
     This function instantiates the FSDP wrap policy.
     - Each Transformers block becomes it's own FSDP group so that only a single Transformer block is sharded at a time
-    - If LoRA is enabled, we additionally create seperate FSDP sub-groups for every trainable and non-trainable parameter group
+    - If LoRA is enabled, we additionally create separate FSDP sub-groups for every trainable and non-trainable parameter group
       since this is a requirement for mixed requires_grad=True/False training. See: https://pytorch.org/docs/stable/fsdp.html
     """
 
-    # Each transformer block becomes a FSDP group, each being sharded seperately
+    # Each transformer block becomes a FSDP group, each being sharded separately
     transformer_block_wrap_policy = functools.partial(
         torch_wrap.transformer_auto_wrap_policy,
         transformer_layer_cls=(TransformerBlock,),
@@ -94,7 +94,7 @@ def initialize_lora_parameters(model: torch.nn.Module, param_dtype: torch.dtype)
                     torch.nn.init.zeros_(param)
                 else:
                     raise ValueError(
-                        "Only Lora layers should be randomely initialized."
+                        "Only Lora layers should be randomly initialized."
                     )
 
 
@@ -150,7 +150,7 @@ def load_model(
 
         assert not any(
             p.is_meta for p in model.parameters()
-        ), "All parameters should be intialized by now"
+        ), "All parameters should be initialized by now"
         assert all(
             p.dtype == param_dtype for p in model.parameters()
         ), f"All parameters should be on {param_dtype}"
