@@ -5,7 +5,7 @@ class MessageFormatError(Exception):
         super().__init__()
 
     def __str__(self):
-        return f"A message starting with {self._begin_data} is incorrectly formated." + self._message
+        return f"A message starting with {self._begin_data} is incorrectly formatted." + self._message
 
 
 class ToolCallFormatError(Exception):
@@ -15,7 +15,7 @@ class ToolCallFormatError(Exception):
         super().__init__()
 
     def __str__(self):
-        return f"A tool call assistant message starting with {self._begin_data} of the conversation is incorrectly formated. " + self._message
+        return f"A tool call assistant message starting with {self._begin_data} of the conversation is incorrectly formatted. " + self._message
 
 
 class FunctionFormatError(Exception):
@@ -26,7 +26,7 @@ class FunctionFormatError(Exception):
 
     def __str__(self):
         return (
-            f"A function of the conversation starting with {self._begin_data} is incorrectly formated. "
+            f"A function of the conversation starting with {self._begin_data} is incorrectly formatted. "
             + self._message
         )
 
@@ -39,7 +39,7 @@ class ConversationFormatError(Exception):
 
     def __str__(self):
         return (
-            f"A conversation starting with {self._begin_data} is incorrectly formated. " + self._message
+            f"A conversation starting with {self._begin_data} is incorrectly formatted. " + self._message
         )
 
 
