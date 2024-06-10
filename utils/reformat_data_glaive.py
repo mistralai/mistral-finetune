@@ -115,7 +115,7 @@ def reformat_jsonl(input_file):  # noqa: C901
 
     os.rename(output_file, input_file)
     print(
-        f"Skipped {len(skipped_samples)} samples ({len(skipped_samples) / i:.2%}). The following samples are incorrectly formated: \n\n {', '.join(skipped_samples)}"
+        f"Skipped {len(skipped_samples)} samples ({len(skipped_samples) / i:.2%}). The following samples are incorrectly formatted: \n\n {', '.join(skipped_samples)}"
     )
 
 
