@@ -33,7 +33,7 @@ def main_logger_info(message: str) -> None:
 def get_fsdp_policy(is_lora: bool) -> Callable[[torch.nn.Module], bool]:
     """
     This function instantiates the FSDP wrap policy.
-    - Each Transformers block becomes it's own FSDP group so that only a single Transformer block is sharded at a time
+    - Each Transformers block becomes its own FSDP group so that only a single Transformer block is sharded at a time
     - If LoRA is enabled, we additionally create separate FSDP sub-groups for every trainable and non-trainable parameter group
       since this is a requirement for mixed requires_grad=True/False training. See: https://pytorch.org/docs/stable/fsdp.html
     """
@@ -70,7 +70,7 @@ def log_train_params(model: Union[torch.nn.Module, FullyShardedDataParallel]):
     )
 
     main_logger_info(
-        f"{num_train_params:,.0f} out of {num_params:,.0f} parameter are finetuned ({num_train_params / num_params * 100:.2f}%)."
+        f"{num_train_params:,.0f} out of {num_params:,.0f} parameters are finetuned ({num_train_params / num_params * 100:.2f}%)."
     )
 
 
