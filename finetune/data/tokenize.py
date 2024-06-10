@@ -209,7 +209,7 @@ def _parse_available_tools(tools: List[Dict[str, Any]]) -> List[Tool]:
 
         if not isinstance(func_data["parameters"], dict):
             raise FunctionFormatError(
-                f"A function 'parameters' key has to be of type dict, but is {type(func_data['parameters'])}. If the function has no parameters pass an empyt dict ", str(func_data)
+                f"A function 'parameters' key has to be of type dict, but is {type(func_data['parameters'])}. If the function has no parameters pass an empty dict ", str(func_data)
             )
 
         description = func_data["description"]
