@@ -13,18 +13,18 @@ class InstructArgs(Serializable):
     # For function calling training examples only the last tool call
     # of the assistant message can be used for training. Therefore,
     # we chunk longer function calling conversations into multiple
-    # training samples to not loose any data. E.g.:
+    # training samples to not lose any data. E.g.:
     # [[
-    #   UserMessage_1, AssisantToolCallMessage_1, ToolMessage_1, AssisantMessage_1
-    #   UserMessage_2, AssisantToolCallMessage_2, ToolMessage_2, AssisantMessage_2
+    #   UserMessage_1, AssistantToolCallMessage_1, ToolMessage_1, AssistantMessage_1
+    #   UserMessage_2, AssistantToolCallMessage_2, ToolMessage_2, AssistantMessage_2
     # ]]
     # => is chunked into two training samples:
     # [[
-    #   UserMessage_1, AssisantToolCallMessage_1, ToolMessage_1, AssisantMessage_1
+    #   UserMessage_1, AssistantToolCallMessage_1, ToolMessage_1, AssistantMessage_1
     # ],
     # [
-    #   UserMessage_1, AssisantToolCallMessage_1, ToolMessage_1, AssisantMessage_1
-    #   UserMessage_2, AssisantToolCallMessage_2, ToolMessage_2, AssisantMessage_2
+    #   UserMessage_1, AssistantToolCallMessage_1, ToolMessage_1, AssistantMessage_1
+    #   UserMessage_2, AssistantToolCallMessage_2, ToolMessage_2, AssistantMessage_2
     # ]]
     # NOTE: Only if your data is already pre-chunked should this argument be set to False
     dynamic_chunk_fn_call: bool = True
