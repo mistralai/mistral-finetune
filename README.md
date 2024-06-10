@@ -6,7 +6,7 @@
 
 
 `mistral-finetune` is a light-weight codebase that enables memory-efficient and performant finetuning of Mistral's models.
-It is based on [LoRA](https://arxiv.org/abs/2106.09685), a training paradigm where most weights are frozen and only 1-2% additional weights in the form of low-rank matrix perturbations are trained. 
+It is based on [LoRA](https://arxiv.org/abs/2106.09685), a training paradigm where most weights are frozen and only 1-2% of additional weights in the form of low-rank matrix perturbations are trained. 
 
 For maximum efficiency it is recommended to use an A100 or H100 GPU. The codebase is optimized 
 for multi-GPU-single-node training setups, but for smaller models, such as the 7B a single GPU suffices.
