@@ -10,7 +10,7 @@ body:
   - type: textarea
     id: python-vv
     attributes:
-      label: Python -VV
+      label: Python Version
       description: Run `python -VV` from your virtual environment
       placeholder: Copy-paste the output (no need for backticks, will be formatted into code automatically)
       render: shell
