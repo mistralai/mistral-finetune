@@ -179,7 +179,6 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
             messages.append(tool_message)
 
     # validate created messages
-    print(messages)
     validator = MistralRequestValidatorV3(ValidationMode.finetuning)
     validator.validate_messages(messages)
     if added_system_message:
