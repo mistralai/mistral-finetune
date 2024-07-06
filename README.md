@@ -42,10 +42,10 @@ We recommend fine-tuning one of the official Mistral models which you can downlo
 |----------------|---------------------------------------------------------------------------------------------------------|-----------------------------------|
 | 7B Base V3       | [7B Base](https://models.mistralcdn.com/mistral-7b-v0-3/mistral-7B-v0.3.tar)                            | `0663b293810d7571dad25dae2f2a5806`|
 | 7B Instruct v3 | [7B Instruct v3](https://models.mistralcdn.com/mistral-7b-v0-3/mistral-7B-Instruct-v0.3.tar)             | `80b71fcb6416085bcb4efad86dfb4d52`|
-| 8x7B Base V1   | [8x7B Base](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1)                                                                        | (HF link)                                |
-| 8x7B Instruct V1 | [8x7B Instruct](https://models.mistralcdn.com/mixtral-8x7b-v0-1/Mixtral-8x7B-v0.1-Instruct.tar) | `8e2d3930145dc43d3084396f49d38a3f` |
-| 8x22 Instruct V3 | [8x22 Instruct](https://models.mistralcdn.com/mixtral-8x22b-v0-3/mixtral-8x22B-Instruct-v0.3.tar)        | `471a02a6902706a2f1e44a693813855b`|
+| 8x7B Base V1 **(Update soon)**  | [8x7B Base](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1)                                                                        | (HF link)                                |
+| 8x7B Instruct V1 **(Update soon)** | [8x7B Instruct](https://models.mistralcdn.com/mixtral-8x7b-v0-1/Mixtral-8x7B-v0.1-Instruct.tar) | `8e2d3930145dc43d3084396f49d38a3f` |
 | 8x22B Base V3  | [8x22B Base](https://models.mistralcdn.com/mixtral-8x22b-v0-3/mixtral-8x22B-v0.3.tar)                        | `a2fa75117174f87d1197e3a4eb50371a`|
+| 8x22B Instruct V3 | [8x22B Instruct](https://models.mistralcdn.com/mixtral-8x22b-v0-3/mixtral-8x22B-Instruct-v0.3.tar)        | `471a02a6902706a2f1e44a693813855b`|
 
 **Important Notice**: For 8x7B Base V1 and 8x7B Instruct V1, it is necessary to use our v3 tokenizer and extend the vocabulary size to 32768 prior to fine-tuning. For detailed instructions on this process, please refer to the ["Model extension"](https://github.com/mistralai/mistral-finetune?tab=readme-ov-file#model-extension) section. 
 
