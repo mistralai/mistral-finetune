@@ -181,6 +181,7 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
     # validate created messages
     validator = MistralRequestValidatorV3(ValidationMode.finetuning)
     validator.validate_messages(messages)
+    # after messages validation, remove system prompt
     if added_system_message:
         messages = messages[1:]
     validator._validate_tools(available_tools or [])
