@@ -24,8 +24,9 @@ for multi-GPU-single-node training setups, but for smaller models, such as the 7
 
 - `mistral-finetune` is now compatible with Mistral Nemo! 
   - 1. Download the new checkpoints [here](##model-download) and set `model_id_or_path` to the new checkpoint
-  - 2. Fine-tuning Mistral-Nemo requires currently much more memory due to a larger vocabulary size which spikes the peak memory requirement of the CE loss (we'll soon add an improved CE loss here). For now set `seq_len` to 16384 or 8192
-  - 3. It is recommended to use the same hyperparameters as for the 7B v3.
+  - 2. Run `pip install --upgrade mistral-common` to have a version that supports the Tekkenizer (`>=1.3.1`).
+  - 3. Fine-tuning Mistral-Nemo requires currently much more memory due to a larger vocabulary size which spikes the peak memory requirement of the CE loss (we'll soon add an improved CE loss here). For now set `seq_len` to 16384 or 8192
+  - 4. It is recommended to use the same hyperparameters as for the 7B v3.
 
 ## Installation
 
