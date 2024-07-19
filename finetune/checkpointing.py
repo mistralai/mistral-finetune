@@ -6,7 +6,10 @@ from typing import Dict, List, Optional, Union
 
 import safetensors.torch
 import torch
-from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+from mistral_common.tokens.tokenizers.sentencepiece import (
+    InstructTokenizerBase,
+    SentencePieceTokenizer,
+)
 from torch.distributed import barrier
 from torch.distributed.fsdp.fully_sharded_data_parallel import FullyShardedDataParallel
 
@@ -92,7 +95,7 @@ class Checkpointer:
 
     @staticmethod
     def get_non_lora_states(
-        state_dict: Dict[str, torch.Tensor]
+        state_dict: Dict[str, torch.Tensor],
     ) -> Dict[str, torch.Tensor]:
         return {
             k: v
@@ -136,7 +139,7 @@ class Checkpointer:
         if save_only_lora:
 
             def is_trainable_fsdp(
-                module: Union[torch.nn.Module, FullyShardedDataParallel]
+                module: Union[torch.nn.Module, FullyShardedDataParallel],
             ):
                 is_fsdp = isinstance(module, FullyShardedDataParallel)
                 all_params_have_grads = is_fsdp and all(
@@ -186,12 +189,19 @@ class Checkpointer:
 
     @staticmethod
     def save_tokenizer(instruct_tokenizer: InstructTokenizerBase, tmp_dst: Path):
-        serialized_spm = instruct_tokenizer.tokenizer._model.serialized_model_proto()  # type: ignore
+        if isinstance(instruct_tokenizer.tokenizer, SentencePieceTokenizer):
+            serialized_spm = (
+                instruct_tokenizer.tokenizer._model.serialized_model_proto()
+            )  # type: ignore
 
-        tokenizer_path = tmp_dst / "tokenizer.model.v3"
+            tokenizer_path = tmp_dst / "tokenizer.model.v3"
 
-        with open(tokenizer_path, "wb") as f:
-            f.write(serialized_spm)
+            with open(tokenizer_path, "wb") as f:
+                f.write(serialized_spm)
+        else:
+            path = instruct_tokenizer.tokenizer._path
+            assert path is not None
+            shutil.copy(path, tmp_dst / "tekken.json")
 
     @torch.no_grad()
     def save_checkpoint(
