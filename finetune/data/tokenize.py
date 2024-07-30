@@ -124,6 +124,7 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
     ):
         available_tools = _parse_available_tools(data["available_tools"])
 
+    added_system_message = False
     for data_message in data_messages:
         is_tool_call = data_message.get("tool_calls") is not None
 
@@ -170,6 +171,8 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
                 raise MessageFormatError(err, str(data))
 
             system_prompt = content
+            messages.append(SystemMessage(content=content))
+            added_system_message = True
         elif data_message["role"] == "tool":
             assert content is not None
             tool_message = _parse_tool_message(content, data_message)
@@ -178,6 +181,9 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
     # validate created messages
     validator = MistralRequestValidatorV3(ValidationMode.finetuning)
     validator.validate_messages(messages)
+    # after messages validation, remove system prompt
+    if added_system_message:
+        messages = messages[1:]
     validator._validate_tools(available_tools or [])
 
     # whether to train only on last assistant message
