@@ -22,12 +22,12 @@ for multi-GPU-single-node training setups, but for smaller models, such as the 7
 
 ## News
 
-- **13.08.2024**: `mistral-finetune` is now compatible with [Mistral Large v2](https://mistral.ai/news/mistral-large-2407/)!
+- **13.08.2024**: [Mistral Large v2](https://mistral.ai/news/mistral-large-2407/) is now compatible with `mistral-finetune`!
   - 1. Download the 123B Instruct [here](##model-download) and set `model_id_or_path` to the downloaded checkpoint dir.
   - 2. Fine-tuning Mistral-Large v2 requires significantly more memory due to a larger model size. For now set `seq_len` to <= 8192
   - 3. It is recommended to use a lower learning rate as compared to other models, *e.g.* lr=1e-6 should work well for most cases.
 
-- **19.07.2024**: `mistral-finetune` is now compatible with [Mistral Nemo](https://mistral.ai/news/mistral-nemo/)! 
+- **19.07.2024**: [Mistral Nemo](https://mistral.ai/news/mistral-nemo/) is now compatible with `mistral-finetune`! 
   - 1. Download the 12B Base or Instruct [here](##model-download) and set `model_id_or_path` to the downloaded checkpoint dir.
   - 2. Run `pip install --upgrade mistral-common` to have a version that supports the Tekkenizer (`>=1.3.1`).
   - 3. Fine-tuning Mistral-Nemo requires currently much more memory due to a larger vocabulary size which spikes the peak memory requirement of the CE loss (we'll soon add an improved CE loss here). For now set `seq_len` to <= 16384
