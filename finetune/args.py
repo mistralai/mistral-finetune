@@ -13,9 +13,9 @@ from .data.args import DataArgs
 
 @dataclass
 class OptimArgs(Serializable):
-    lr: float = 3e-4
+    lr: float = 1e-4
     weight_decay: float = 0.1
-    pct_start: float = 0.3
+    pct_start: float = 0.05
 
 
 @dataclass
