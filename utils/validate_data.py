@@ -34,7 +34,7 @@ EXPECTED_WPS = {
     "open-mistral-7b": 5720,
     "open-mixtral-8x7b": 2966,
     "open-mixtral-8x22b": 1007,
-    "mistral-large-latest": 326,
+    "mistral-large-latest": 567,
     'open-mistral-nemo': 3337,
 }
 
