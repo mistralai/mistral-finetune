@@ -110,7 +110,7 @@ def get_train_stats(
             model_id = "mistral-large-latest"
         elif params_config["dim"] == 5120:
             model_id = "open-mistral-nemo"
-	else:
+        else:
             raise ValueError("Provided model folder seems incorrect.")
     else:
         model_id = train_args.model_id_or_path
