@@ -35,7 +35,7 @@ EXPECTED_WPS = {
     "open-mixtral-8x7b": 2966,
     "open-mixtral-8x22b": 1007,
     "mistral-large-latest": 567,
-    'open-mistral-nemo': 3337,
+    "open-mistral-nemo": 3337,
 }
 
 MIN_NUM_JSONL_LINES = 10
@@ -110,7 +110,7 @@ def get_train_stats(
             model_id = "mistral-large-latest"
         elif params_config["dim"] == 5120:
             model_id = "open-mistral-nemo"
-	else:
+        else:
             raise ValueError("Provided model folder seems incorrect.")
     else:
         model_id = train_args.model_id_or_path
