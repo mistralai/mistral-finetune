@@ -424,7 +424,7 @@ def maybe_chunk_lines(lines: List[str]) -> List[str]:
     extra_lines: List[str] = []
     for line in lines:
         data = json.loads(line)
-        # mult-turn fn call data will be chunked and shorter conversations are added additionally
+        # multi-turn fn call data will be chunked and shorter conversations are added additionally
         maybe_chunked_lines = maybe_chunk_data(data)
         extra_lines.extend([json.dumps(line) for line in maybe_chunked_lines])
 

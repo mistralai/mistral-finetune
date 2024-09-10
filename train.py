@@ -43,7 +43,7 @@ from finetune.utils import (
     logged_closing,
     set_random_seed,
 )
-from finetune.wrapped_model import load_model
+from finetune.wrapped_model import load_model, load_args
 
 if TYPE_CHECKING:
     from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
@@ -133,7 +133,12 @@ def _train(
         )
 
     # 6. Load function calling instruct tokenizer
-    instruct_tokenizer: InstructTokenizerBase = MistralTokenizer.v3().instruct_tokenizer  # type: ignore
+    vocab_size = load_args(model_folder, args.lora).vocab_size
+    is_tekken = vocab_size > 32768
+
+    instruct_tokenizer: InstructTokenizerBase = MistralTokenizer.v3(
+        is_tekken=is_tekken
+    ).instruct_tokenizer  # type: ignore
 
     # 7. Load data loaders
     data_loader = build_data_loader(

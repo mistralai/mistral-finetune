@@ -19,6 +19,20 @@ for multi-GPU-single-node training setups, but for smaller models, such as the 7
 > For more generic approaches, you can check out some other great projects like 
 > [torchtune](https://pytorch.org/torchtune/stable/overview.html).
 
+
+## News
+
+- **13.08.2024**: [Mistral Large v2](https://mistral.ai/news/mistral-large-2407/) is now compatible with `mistral-finetune`!
+  - 1. Download the 123B Instruct [here](##model-download) and set `model_id_or_path` to the downloaded checkpoint dir.
+  - 2. Fine-tuning Mistral-Large v2 requires significantly more memory due to a larger model size. For now set `seq_len` to <= 8192
+  - 3. It is recommended to use a lower learning rate as compared to other models, *e.g.* lr=1e-6 should work well for most cases.
+
+- **19.07.2024**: [Mistral Nemo](https://mistral.ai/news/mistral-nemo/) is now compatible with `mistral-finetune`! 
+  - 1. Download the 12B Base or Instruct [here](##model-download) and set `model_id_or_path` to the downloaded checkpoint dir.
+  - 2. Run `pip install --upgrade mistral-common` to have a version that supports the Tekkenizer (`>=1.3.1`).
+  - 3. Fine-tuning Mistral-Nemo requires currently much more memory due to a larger vocabulary size which spikes the peak memory requirement of the CE loss (we'll soon add an improved CE loss here). For now set `seq_len` to <= 16384
+  - 4. It is recommended to use the same hyperparameters as for the 7B v3.
+
 ## Installation
 
 To get started with Mistral LoRA fine-tuning, follow these steps:
@@ -46,6 +60,9 @@ We recommend fine-tuning one of the official Mistral models which you can downlo
 | 8x7B Instruct V1 | [8x7B Instruct](https://models.mistralcdn.com/mixtral-8x7b-v0-1/Mixtral-8x7B-v0.1-Instruct.tar) | `8e2d3930145dc43d3084396f49d38a3f` |
 | 8x22 Instruct V3 | [8x22 Instruct](https://models.mistralcdn.com/mixtral-8x22b-v0-3/mixtral-8x22B-Instruct-v0.3.tar)        | `471a02a6902706a2f1e44a693813855b`|
 | 8x22B Base V3  | [8x22B Base](https://models.mistralcdn.com/mixtral-8x22b-v0-3/mixtral-8x22B-v0.3.tar)                        | `a2fa75117174f87d1197e3a4eb50371a`|
+| 12B Instruct | [12B Instruct (Mistral-Nemo)](https://models.mistralcdn.com/mistral-nemo-2407/mistral-nemo-instruct-2407.tar) | `296fbdf911cb88e6f0be74cd04827fe7` |
+| 12B Base | [12 Base (Mistral-Nemo)](https://models.mistralcdn.com/mistral-nemo-2407/mistral-nemo-base-2407.tar) | `c5d079ac4b55fc1ae35f51f0a3c0eb83` |
+| Mistral Large 2 | [123B Instruct (Large v2)](https://models.mistralcdn.com/mistral-large-2407/mistral-large-instruct-2407.tar) | `fc602155f9e39151fba81fcaab2fa7c4` |
 
 **Important Notice**: For 8x7B Base V1 and 8x7B Instruct V1, it is necessary to use our v3 tokenizer and extend the vocabulary size to 32768 prior to fine-tuning. For detailed instructions on this process, please refer to the ["Model extension"](https://github.com/mistralai/mistral-finetune?tab=readme-ov-file#model-extension) section. 
 
@@ -507,7 +524,7 @@ Once the extension has worked, one can fine-tune using the newly created model c
 
 > - What's the best practice of fine-tuning MoEs?
 
-We see a higher degree of performance variance in when fine-tuning MoE models. It's not unusual to find that fine-tuning MoEs models with different seeds can lead to a high variance in performance. We did not observe such a high variance with dense models. Therefore, we suggest running multiple instances of the same fine-tuning process on MoEs models and selecting the one that performs best.
+We see a higher degree of performance variance in when fine-tuning MoE models. It's not unusual to find that fine-tuning MoE models with different seeds can lead to a high variance in performance. We did not observe such a high variance with dense models. Therefore, we suggest running multiple instances of the same fine-tuning process on MoEs models and selecting the one that performs best.
 
 > - How can I determine the number of tokens used during the model training process?
   

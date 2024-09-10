@@ -76,9 +76,9 @@ def log_train_params(model: Union[torch.nn.Module, FullyShardedDataParallel]):
 
 def initialize_lora_parameters(model: torch.nn.Module, param_dtype: torch.dtype):
     """
-        Initialize LoRA layers with Kaiming uniform and zeros.
-        See original paper for more info: https://arxiv.org/abs/2106.09685 and
-        original github repo: https://github.com/microsoft/LoRA/blob/a0a92e0f26c067cf94747bdbf1ce73793fa44d19/loralib/layers.py#L122
+    Initialize LoRA layers with Kaiming uniform and zeros.
+    See original paper for more info: https://arxiv.org/abs/2106.09685 and
+    original github repo: https://github.com/microsoft/LoRA/blob/a0a92e0f26c067cf94747bdbf1ce73793fa44d19/loralib/layers.py#L122
     """
     for m_name, module in model.named_modules():
         if all(p.is_meta for p in module.parameters()):
@@ -93,17 +93,10 @@ def initialize_lora_parameters(model: torch.nn.Module, param_dtype: torch.dtype)
                 elif m_name.split(".")[-1] == "lora_B":
                     torch.nn.init.zeros_(param)
                 else:
-                    raise ValueError(
-                        "Only Lora layers should be randomly initialized."
-                    )
+                    raise ValueError("Only Lora layers should be randomly initialized.")
 
 
-def load_model(
-    folder: Path,
-    lora: LoraArgs,
-    checkpoint: bool,
-    param_dtype: torch.dtype,
-) -> FullyShardedDataParallel:
+def load_args(folder: Path, lora: LoraArgs) -> ModelArgs:
     with open(folder / "params.json", "r") as f:
         args = json.loads(f.read())
 
@@ -119,6 +112,23 @@ def load_model(
         vocab_size=args["vocab_size"],
     )
 
+    if args.get("rope_theta") is not None:
+        model_args.rope_theta = args["rope_theta"]
+
+    if args.get("moe") is not None:
+        model_args.moe = MoeArgs(**args["moe"])
+
+    return model_args
+
+
+def load_model(
+    folder: Path,
+    lora: LoraArgs,
+    checkpoint: bool,
+    param_dtype: torch.dtype,
+) -> FullyShardedDataParallel:
+    model_args = load_args(folder, lora)
+
     if model_args.vocab_size == 32000:
         raise ValueError(
             f"Fine-tuning is not supported for older model versions with vocab_size 32000. Make sure to extend your model to vocab_size=32768 using `python -m utils.extend_model_vocab --original_model_ckpt {folder} --extended_model_ckpt {folder}_extended`."
@@ -127,12 +137,6 @@ def load_model(
     assert (
         model_args.vocab_size >= 32768
     ), "Make sure to use a model with a vocab size of at least 32768"
-
-    if args.get("rope_theta") is not None:
-        model_args.rope_theta = args["rope_theta"]
-
-    if args.get("moe") is not None:
-        model_args.moe = MoeArgs(**args["moe"])
 
     with torch.device("meta"):
         model = Transformer(args=model_args, checkpoint=checkpoint)

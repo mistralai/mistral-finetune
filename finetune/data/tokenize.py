@@ -219,7 +219,7 @@ def _parse_available_tools(tools: List[Dict[str, Any]]) -> List[Tool]:
             parameters=func_data["parameters"],
         )
 
-    available_tools.append(Tool(function=function))
+        available_tools.append(Tool(function=function))
     return available_tools
 
 
