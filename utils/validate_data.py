@@ -35,7 +35,7 @@ EXPECTED_WPS = {
     "open-mixtral-8x7b": 2966,
     "open-mixtral-8x22b": 1007,
     "mistral-large-latest": 567,
-    'open-mistral-nemo': 3337,
+    "open-mistral-nemo": 3337,
 }
 
 MIN_NUM_JSONL_LINES = 10
