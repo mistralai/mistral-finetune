@@ -311,6 +311,10 @@ def tokenize_instruct(
                 is_first=msg_idx == first_user_idx,
                 system_prompt=sample.system_prompt,
             )
+            if isinstance(curr_tokens, tuple):
+                # Versions of mistral_common>1.3.4 return a tuple of tokens (text), tokens (image), spans (image)
+                curr_tokens = curr_tokens[0]
+                
             curr_masks = [False] * len(curr_tokens)  # only predict bot answers
         elif isinstance(message, ToolMessage):
             curr_tokens = instruct_tokenizer.encode_tool_message(
