@@ -1,0 +1,25 @@
+model_id_or_path: "models/mistral-7b-instruct-v0.3"
+run_dir: "./test_run"
+
+data:
+  instruct_data: "test_data.jsonl"
+
+seq_len: 512
+batch_size: 1
+max_steps: 10
+log_freq: 1
+eval_freq: 20
+ckpt_freq: 20
+
+optim:
+  lr: 5e-5
+  weight_decay: 0.1
+  pct_start: 0.05
+
+lora:
+  rank: 4
+  dropout: 0.1
+
+seed: 42
+save_adapters: true
+no_eval: true

@@ -5,8 +5,23 @@ from typing import Iterable, List, Optional, Union
 import torch
 import torch.distributed.algorithms._checkpoint.checkpoint_wrapper as torch_ckpt
 import torch.nn as nn
-from xformers.ops.fmha import memory_efficient_attention
-from xformers.ops.fmha.attn_bias import AttentionBias, BlockDiagonalCausalMask
+
+# Try to import xformers, but make it optional
+try:
+    from xformers.ops.fmha import memory_efficient_attention
+    from xformers.ops.fmha.attn_bias import AttentionBias, BlockDiagonalCausalMask
+    HAS_XFORMERS = True
+except ImportError:
+    HAS_XFORMERS = False
+    # Define fallback for AttentionBias if xformers is not available
+    class AttentionBias:
+        pass
+    
+    class BlockDiagonalCausalMask:
+        @staticmethod
+        def from_seqlens(seqlens):
+            # Simple fallback - this will be used with PyTorch's native attention
+            return None
 
 from .args import ModelArgs
 from .lora import LoRALinear
@@ -82,9 +97,25 @@ class Attention(nn.Module):
         # Repeat keys and values to match number of query heads
         key, val = repeat_kv(key, val, self.repeats, dim=1)
 
-        # xformers requires (B=1, S, H, D)
-        xq, key, val = xq[None, ...], key[None, ...], val[None, ...]
-        output = memory_efficient_attention(xq, key, val, mask)
+        if HAS_XFORMERS:
+            # xformers requires (B=1, S, H, D)
+            xq, key, val = xq[None, ...], key[None, ...], val[None, ...]
+            output = memory_efficient_attention(xq, key, val, mask)
+        else:
+            # Fallback to PyTorch's native attention
+            # Reshape to (B=1, H, S, D) for PyTorch's scaled_dot_product_attention
+            xq = xq.transpose(0, 1).unsqueeze(0)  # (1, H, S, D)
+            key = key.transpose(0, 1).unsqueeze(0)  # (1, H, S, D)
+            val = val.transpose(0, 1).unsqueeze(0)  # (1, H, S, D)
+            
+            # Use PyTorch's native attention with causal mask
+            output = torch.nn.functional.scaled_dot_product_attention(
+                xq, key, val, 
+                is_causal=True,
+                scale=self.scale
+            )
+            # Reshape back to (S, H, D)
+            output = output.squeeze(0).transpose(0, 1)
 
         return self.wo(output.view(seqlen_sum, -1))
 

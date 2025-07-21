@@ -1,0 +1,42 @@
+batch_size: 1
+checkpoint: true
+ckpt_freq: 20
+data:
+  data: ''
+  eval_instruct_data: ''
+  instruct:
+    dynamic_chunk_fn_call: true
+    shuffle: true
+  instruct_data: test_data.jsonl
+  shuffle: false
+eval_freq: 20
+log_freq: 1
+lora:
+  dropout: 0.1
+  enable: true
+  rank: 4
+  scaling: 2.0
+max_norm: 1.0
+max_steps: 10
+mlflow:
+  experiment_name: null
+  tracking_uri: null
+model_id_or_path: models/mistral-7b-instruct-v0.3
+no_ckpt: false
+no_eval: true
+num_ckpt_keep: 3
+num_microbatches: 1
+optim:
+  lr: 5.0e-05
+  pct_start: 0.05
+  weight_decay: 0.1
+run_dir: ./test_run
+save_adapters: true
+seed: 42
+seq_len: 512
+wandb:
+  key: null
+  offline: false
+  project: null
+  run_name: null
+world_size: 1

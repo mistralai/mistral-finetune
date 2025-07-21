@@ -134,7 +134,7 @@ def _train(
 
     # 6. Load function calling instruct tokenizer
     vocab_size = load_args(model_folder, args.lora).vocab_size
-    ).instruct_tokenizer  # type: ignore
+    instruct_tokenizer = MistralTokenizer.from_file(str(model_folder / "tokenizer.model.v3"))
 
     # 7. Load data loaders
     data_loader = build_data_loader(

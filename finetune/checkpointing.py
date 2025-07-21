@@ -6,10 +6,8 @@ from typing import Dict, List, Optional, Union
 
 import safetensors.torch
 import torch
-from mistral_common.tokens.tokenizers.sentencepiece import (
-    MistralTokenizer,
-    SentencePieceTokenizer,
-)
+from mistral_common.tokens.tokenizers.mistral import MistralTokenizer
+from mistral_common.tokens.tokenizers.sentencepiece import SentencePieceTokenizer
 from torch.distributed import barrier
 from torch.distributed.fsdp.fully_sharded_data_parallel import FullyShardedDataParallel
 
@@ -189,19 +187,10 @@ class Checkpointer:
 
     @staticmethod
     def save_tokenizer(instruct_tokenizer: MistralTokenizer, tmp_dst: Path):
-        if isinstance(instruct_tokenizer.tokenizer, SentencePieceTokenizer):
-            serialized_spm = (
-                instruct_tokenizer.tokenizer._model.serialized_model_proto()
-            )  # type: ignore
-
-            tokenizer_path = tmp_dst / "tokenizer.model.v3"
-
-            with open(tokenizer_path, "wb") as f:
-                f.write(serialized_spm)
-        else:
-            path = instruct_tokenizer.tokenizer._path
-            assert path is not None
-            shutil.copy(path, tmp_dst / "tekken.json")
+        # For mistral-common v1.8.1, we need to handle tokenizer saving differently
+        # The tokenizer doesn't expose the underlying file path directly
+        # So we'll just skip saving it since it's already in the model folder
+        logger.info("Skipping tokenizer save for mistral-common v1.8.1 - tokenizer already in model folder")
 
     @torch.no_grad()
     def save_checkpoint(

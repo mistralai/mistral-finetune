@@ -312,6 +312,11 @@ def tokenize_instruct(
         @property
         def tools(self):
             return self.available_tools
+        
+        @property
+        def truncate_for_context_length(self):
+            # Default value for truncate_for_context_length
+            return False
     
     request = InstructRequestCompat(
         messages=sample.messages,
