@@ -1,0 +1,3 @@
+{"messages": [{"role": "user", "content": "What is Python?"}, {"role": "assistant", "content": "Python is a high-level, interpreted programming language known for its simplicity and readability."}]}
+{"messages": [{"role": "user", "content": "How do I install Python?"}, {"role": "assistant", "content": "You can install Python by downloading it from python.org or using package managers like apt or brew."}]}
+{"messages": [{"role": "user", "content": "What is a Python list?"}, {"role": "assistant", "content": "A Python list is a built-in data structure that can store multiple items in a single variable."}]}

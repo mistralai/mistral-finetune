@@ -146,7 +146,7 @@ class MockTokenizer:
         return content
 
 
-class MockInstructTokenizerBaseBase:
+class MockMistralTokenizerBase:
     def __init__(self):
         self.tokenizer = MockTokenizer()
 
@@ -220,7 +220,7 @@ def _check_data_loader_dist(
             instruct=instruct,
         )
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     data_loader = build_data_loader(
         instruct_tokenizer,
@@ -287,7 +287,7 @@ def _check_data_loader_dist_fn_call(
         instruct=InstructArgs(shuffle=True, dynamic_chunk_fn_call=True),
     )
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     data_loader = build_data_loader(
         instruct_tokenizer,
@@ -352,7 +352,7 @@ def _check_data_loader_equal_fsdp(
         instruct=instruct,
     )
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     data_loader_0 = build_data_loader(
         instruct_tokenizer,
@@ -461,7 +461,7 @@ def test_fn_call():
         instruct_data="",
         eval_instruct_data="tests/fixtures/sample_instruct_fn_call.jsonl",
     )
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     seq_len = 10000
 
@@ -527,7 +527,7 @@ def test_data_weighting():
         eval_instruct_data="tests/fixtures/sample_instruct.jsonl",
     )
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     jsonl_file = Path(data_args.eval_instruct_data)
 
@@ -569,7 +569,7 @@ def test_eval_dataloader():
         eval_instruct_data="tests/fixtures/sample_instruct.jsonl,tests/fixtures/sample_instruct_2.jsonl,tests/fixtures/sample_instruct_3.jsonl",
     )
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     # make sure that for every seq len the same data is seen
     for world_size in [1, 2, 8]:
@@ -612,7 +612,7 @@ def test_eval_dataloader():
 
 
 def test_shuffle_data():
-    instruct_tokenizer = MockInstructTokenizerBaseBase()
+    instruct_tokenizer = MockMistralTokenizerBase()
 
     data_args = DataArgs(data="", instruct_data="", eval_instruct_data="")
 
@@ -676,7 +676,7 @@ def _check_shuffle_data_same_as_no_shuffle(
     filename: str,
     filename_rpc: str,
 ):
-    instruct_tokenizer = MockInstructTokenizerBaseBase()
+    instruct_tokenizer = MockMistralTokenizerBase()
 
     instruct = InstructArgs(shuffle=False, dynamic_chunk_fn_call=False)
 

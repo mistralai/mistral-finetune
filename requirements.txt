@@ -1,11 +1,17 @@
 fire
 simple-parsing
 pyyaml
-mistral-common>=1.3.1
+mistral-common>=1.8.1
 safetensors
 tensorboard
 tqdm
 
-torch==2.2
-triton==2.2
-xformers==0.0.24
+# PyTorch with CUDA 12.9 support for RTX 5090
+# Install with: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu129
+# Note: torch, torchvision, torchaudio are not listed here because they need special index URL
+
+# Triton for PyTorch 2.9.0
+triton>=3.0.0
+
+# xformers - install with --no-deps to avoid conflicts
+# pip install xformers==0.0.31.post1 --no-deps

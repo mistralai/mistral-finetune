@@ -33,7 +33,7 @@ def extend_model(original_model: Path, extended_model: Path):
     ), f"Make sure {extended_model} is empty"
 
     # Load and check tokenizers
-    mistral_tokenizer = MistralTokenizer.v3()
+    mistral_tokenizer = MistralTokenizer.from_file()
     tokenizer: SentencePieceTokenizer = mistral_tokenizer.instruct_tokenizer.tokenizer
 
     new_vocab_size = tokenizer.n_words

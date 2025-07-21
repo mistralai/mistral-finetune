@@ -2,7 +2,7 @@ import dataclasses
 from typing import Any, Iterator, List, Optional
 
 import numpy as np
-from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+from mistral_common.tokens.tokenizers.mistral import MistralTokenizer
 
 from .args import DataArgs
 from .dataset import build_dataset
@@ -87,7 +87,7 @@ class BatchList:
 
 
 def build_data_loader(
-    instruct_tokenizer: InstructTokenizerBase,
+    instruct_tokenizer: MistralTokenizer,
     args: DataArgs,
     batch_size: int,
     seq_len: int,

@@ -173,7 +173,7 @@ def main(args):
 
     EXPECTED_WPS.keys()
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     for name, pretrain_file, instruct_file in data:
         datasets, weights = parse_data_sources(pretrain_file, instruct_file)

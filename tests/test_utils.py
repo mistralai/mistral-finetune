@@ -205,7 +205,7 @@ def get_dataloader(
     rank = rank if rank is not None else get_rank()
     world_size = world_size if world_size is not None else get_world_size()
 
-    instruct_tokenizer = MistralTokenizer.v3().instruct_tokenizer
+    instruct_tokenizer = MistralTokenizer.from_file().instruct_tokenizer
 
     instruct = InstructArgs(shuffle=False, dynamic_chunk_fn_call=False)
 

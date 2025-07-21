@@ -7,7 +7,7 @@ from typing import Dict, List, Optional, Union
 import safetensors.torch
 import torch
 from mistral_common.tokens.tokenizers.sentencepiece import (
-    InstructTokenizerBase,
+    MistralTokenizer,
     SentencePieceTokenizer,
 )
 from torch.distributed import barrier
@@ -188,7 +188,7 @@ class Checkpointer:
         return states
 
     @staticmethod
-    def save_tokenizer(instruct_tokenizer: InstructTokenizerBase, tmp_dst: Path):
+    def save_tokenizer(instruct_tokenizer: MistralTokenizer, tmp_dst: Path):
         if isinstance(instruct_tokenizer.tokenizer, SentencePieceTokenizer):
             serialized_spm = (
                 instruct_tokenizer.tokenizer._model.serialized_model_proto()
@@ -208,7 +208,7 @@ class Checkpointer:
         self,
         save_only_lora: bool,
         dtype: torch.dtype = torch.float16,
-        instruct_tokenizer: Optional[InstructTokenizerBase] = None,
+        instruct_tokenizer: Optional[MistralTokenizer] = None,
     ):
         tmp_dst = self._tmp(self.dst_dir)
         main_logger_info(

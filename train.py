@@ -46,7 +46,7 @@ from finetune.utils import (
 from finetune.wrapped_model import load_model, load_args
 
 if TYPE_CHECKING:
-    from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+    from mistral_common.tokens.tokenizers.mistral import MistralTokenizer
 
 logger = logging.getLogger("train")
 
@@ -134,10 +134,6 @@ def _train(
 
     # 6. Load function calling instruct tokenizer
     vocab_size = load_args(model_folder, args.lora).vocab_size
-    is_tekken = vocab_size > 32768
-
-    instruct_tokenizer: InstructTokenizerBase = MistralTokenizer.v3(
-        is_tekken=is_tekken
     ).instruct_tokenizer  # type: ignore
 
     # 7. Load data loaders

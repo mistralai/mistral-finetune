@@ -12,7 +12,7 @@ from mistral_common.protocol.instruct.messages import (
     FinetuningAssistantMessage,
     SystemMessage,
 )
-from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+from mistral_common.tokens.tokenizers.mistral import MistralTokenizer
 
 from finetune.distributed import get_rank
 
@@ -48,7 +48,7 @@ def load_file(path: Path, world_size: int, rank: int) -> List[str]:
 
 
 def maybe_load_local_dataset(
-    path: Path, chunk: bool, rank: int, world_size: int, instruct_tokenizer: InstructTokenizerBase, sample_type: SampleType
+    path: Path, chunk: bool, rank: int, world_size: int, instruct_tokenizer: MistralTokenizer, sample_type: SampleType
 ) -> List[TokenSample]:
     global _LOADED_DATASETS
 
@@ -255,7 +255,7 @@ def build_dataset(
     pretrain_data: str,
     instruct_data: str,
     instruct_args: InstructArgs,
-    instruct_tokenizer: InstructTokenizerBase,
+    instruct_tokenizer: MistralTokenizer,
     seq_len: int,
     seed: Optional[int],
     rank: int,
@@ -320,7 +320,7 @@ def get_rng(seed: int, rank: int) -> np.random.RandomState:
 def get_dataset_iterator(
     source: Union[DataDir, DataFile],
     instruct_args: InstructArgs,
-    instruct_tokenizer: InstructTokenizerBase,
+    instruct_tokenizer: MistralTokenizer,
     rank: int,
     world_size: int,
     is_finite: bool,
@@ -382,7 +382,7 @@ def preload_and_yield(
     rank: int,
     world_size: int,
     rng: np.random.RandomState,
-    instruct_tokenizer: InstructTokenizerBase,
+    instruct_tokenizer: MistralTokenizer,
     sample_type: SampleType,
 ) -> Iterator[TokenSample]:
     # only instruct data has to be chunked
@@ -404,7 +404,7 @@ def lazy_load_and_yield(
     jsonl_file: Path,
     rank: int,
     world_size: int,
-    instruct_tokenizer: InstructTokenizerBase,
+    instruct_tokenizer: MistralTokenizer,
     sample_type: SampleType,
 ):
     with jsonl_file.open() as file_handle:
