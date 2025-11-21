@@ -12,9 +12,11 @@ class LoraArgs(Serializable):
     scaling: float = 2.0
 
     def __post_init__(self):
-        if self.enable:
-            assert self.rank > 0
-            assert self.scaling > 0.0
+    if self.enable:
+        assert self.rank > 0, "LoRA rank must be positive"
+        assert self.scaling > 0.0, "LoRA scaling must be positive"
+        assert 0.0 <= self.dropout <= 1.0, "LoRA dropout must be between 0 and 1"
+
 
 
 @dataclass

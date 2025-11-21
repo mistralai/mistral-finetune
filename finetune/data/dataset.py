@@ -77,7 +77,6 @@ def maybe_load_local_dataset(
 
     return _LOADED_DATASETS[path]
 
-
 @dataclass
 class DataDir:
     path: Path
@@ -89,7 +88,7 @@ class DataDir:
         jsonl_files = list(self.path.rglob("*jsonl"))
         assert (
             len(jsonl_files) > 0
-        ), f"{self.path} does not seem to have any files ending with '.jsonl'"
+        ), f"No '.jsonl' files found in directory: {self.path}. Please ensure your data files are properly formatted with .jsonl extension."
         return jsonl_files
 
 

@@ -112,9 +112,8 @@ class RMSNorm(torch.nn.Module):
         return x * torch.rsqrt(x.pow(2).mean(-1, keepdim=True) + self.eps)
 
     def forward(self, x):
-        output = self._norm(x.float()).type_as(x)
-        return output * self.weight
-
+    output = self._norm(x.to(torch.float32)).to(x.dtype)
+    return output * self.weight
 
 class TransformerBlock(nn.Module):
     def __init__(self, args: ModelArgs):
