@@ -2,7 +2,7 @@ import dataclasses
 from typing import Any, Iterator, List, Optional
 
 import numpy as np
-from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+from mistral_common.tokens.tokenizers.instruct import InstructTokenizerBase
 
 from .args import DataArgs
 from .dataset import build_dataset

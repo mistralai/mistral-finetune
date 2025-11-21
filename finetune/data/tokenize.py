@@ -22,7 +22,7 @@ from mistral_common.protocol.instruct.validator import (
 )
 from mistral_common.tokens.instruct.request import InstructRequest
 from mistral_common.tokens.tokenizers.base import Tokenizer
-from mistral_common.tokens.tokenizers.sentencepiece import InstructTokenizerBase
+from mistral_common.tokens.tokenizers.instruct import InstructTokenizerBase
 
 from .exceptions import (
     ConversationFormatError,
@@ -177,7 +177,7 @@ def build_instruct_sample(data: Dict[str, Any]) -> TrainingInstructSample:
 
     # validate created messages
     validator = MistralRequestValidatorV3(ValidationMode.finetuning)
-    validator.validate_messages(messages)
+    validator.validate_messages(messages, False)
     validator._validate_tools(available_tools or [])
 
     # whether to train only on last assistant message
@@ -328,7 +328,7 @@ def tokenize_instruct(
             message = maybe_remove_call_id(message, is_last_message=is_last_message)
 
             curr_tokens = instruct_tokenizer.encode_assistant_message(
-                message, is_before_last_user_message=False
+                message, is_before_last_user_message=False, continue_message=False
             )
 
             is_weighted = message.weight is None or message.weight == 1

@@ -6,10 +6,8 @@ from typing import Dict, List, Optional, Union
 
 import safetensors.torch
 import torch
-from mistral_common.tokens.tokenizers.sentencepiece import (
-    InstructTokenizerBase,
-    SentencePieceTokenizer,
-)
+from mistral_common.tokens.tokenizers.sentencepiece import SentencePieceTokenizer
+from mistral_common.tokens.tokenizers.instruct import InstructTokenizerBase
 from torch.distributed import barrier
 from torch.distributed.fsdp.fully_sharded_data_parallel import FullyShardedDataParallel
 
