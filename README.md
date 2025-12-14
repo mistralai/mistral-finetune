@@ -68,7 +68,7 @@ We recommend fine-tuning one of the official Mistral models which you can downlo
 
 E.g., to download the 7B-base model you can run the following command:
 ```sh
-mkdir -p ~/${HOME}/mistral_models
+mkdir -p ~/mistral_models
 cd ${HOME} && wget https://models.mistralcdn.com/mistral-7b-v0-3/mistral-7B-v0.3.tar
 tar -xf mistral-7B-v0.3.tar -C mistral_models
 ```
