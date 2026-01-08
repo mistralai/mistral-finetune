@@ -34,3 +34,10 @@ wandb:
   run_name: "" # your wandb run name
   key: "" # your wandb api key
   offline: False
+
+comet_ml:
+  project_name: "" # your Comet project name (Mandatory if you would like to enable Comet experiment management)
+  workspace: null # your Comet workspace name (Optional)
+  experiment_key: null # the Comet Experiment identifier to be used for logging.(Optional)
+  api_key: null # your Comet API key (Online - mandatory, offline - optional)
+  online: True # flag to control if data should be sent to the Comet server during the run

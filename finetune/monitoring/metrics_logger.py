@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional, Union
 
 from torch.utils.tensorboard import SummaryWriter
 
-from finetune.args import MLFlowArgs, TrainArgs, WandbArgs
+from finetune.args import MLFlowArgs, TrainArgs, WandbArgs, CometMLArgs
 from finetune.utils import TrainState
 
 logger = logging.getLogger("metrics_logger")
@@ -109,6 +109,7 @@ class MetricsLogger:
         is_master: bool,
         wandb_args: WandbArgs,
         mlflow_args: MLFlowArgs,
+        comet_ml_args: CometMLArgs,
         config: Optional[Dict[str, Any]] = None,
     ):
         self.dst_dir = dst_dir
@@ -130,6 +131,7 @@ class MetricsLogger:
         )
         self.is_wandb = wandb_args.project is not None
         self.is_mlflow = mlflow_args.tracking_uri is not None
+        self.is_comet = comet_ml_args.project_name is not None
 
         if self.is_wandb:
             import wandb
@@ -162,6 +164,17 @@ class MetricsLogger:
 
             self.mlflow_log = mlflow.log_metric
 
+        if self.is_comet:
+            import comet_ml
+
+            self.comet_experiment = comet_ml.start(
+                api_key=comet_ml_args.api_key,
+                project_name=comet_ml_args.project_name,
+                workspace=comet_ml_args.workspace,
+                experiment_key=comet_ml_args.experiment_key,
+                online=comet_ml_args.online,
+            )
+
     def log(self, metrics: Dict[str, Union[float, int]], step: int):
         if not self.is_master:
             return
@@ -178,6 +191,10 @@ class MetricsLogger:
 
             if self.is_mlflow:
                 self.mlflow_log(f"{self.tag}.{key}", value, step=step)
+
+            if self.is_comet:
+                with self.comet_experiment.context_manager(self.tag):
+                    self.comet_experiment.log_metric(key, value, step=step, include_context=True)
 
         if self.is_wandb:
             # grouping in wandb is done with /
@@ -217,6 +234,11 @@ class MetricsLogger:
             import mlflow
 
             mlflow.end_run()
+
+        if self.is_comet and self.comet_experiment is not None:
+
+            # to make sure everything is logged to Comet at this moment explicitly
+            self.comet_experiment.end()
 
     def __del__(self):
         if self.summary_writer is not None:

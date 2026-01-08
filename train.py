@@ -110,6 +110,7 @@ def _train(
         is_master=get_rank() == 0,
         wandb_args=args.wandb,
         mlflow_args=args.mlflow,
+        comet_ml_args=args.comet_ml,
         config=dataclasses.asdict(args),
     )
     exit_stack.enter_context(logged_closing(metrics_logger, "metrics_logger"))
@@ -120,6 +121,7 @@ def _train(
         is_master=get_rank() == 0,
         wandb_args=args.wandb,
         mlflow_args=args.mlflow,
+        comet_ml_args=args.comet_ml,
         config=dataclasses.asdict(args),
     )
     exit_stack.enter_context(logged_closing(eval_logger, "eval_logger"))

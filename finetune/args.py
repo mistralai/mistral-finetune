@@ -50,6 +50,42 @@ class MLFlowArgs(Serializable):
             if self.experiment_name is None:
                 raise ValueError("If `mlflow.tracking_uri` is set, `mlflow.experiment_name` must be set as well.")
 
+@dataclass
+class CometMLArgs(Serializable):
+    """The configuration options for Comet-ml experiment management SDK to be used for tracking metrics, parameters, etc.
+
+    See https://www.comet.com/docs/v2/api-and-sdk/python-sdk/reference/start/#comet_ml.start for more details about
+    configuration options.
+
+    To enable Comet experiment management, set `comet_ml.project_name` in the configuration file.
+
+    Args:
+        project_name (str, optional): your Comet project name. Mandatory if you would like to enable Comet
+            experiment management SDK.
+        workspace (str, optional): Comet workspace name. If not provided, uses the default workspace.
+        experiment_key (str, optional): The Experiment identifier to be used for logging. This is used either to append
+            data to an Existing Experiment or to control the key of new experiments (for example to match another
+            identifier). Must be an alphanumeric string whose length is between 32 and 50 characters.
+        api_key (str, optional): Comet API key. It's recommended to configure the API Key with `comet login`.
+        online (boolean): If True, the data will be logged to Comet server, otherwise it will be stored locally
+            in an offline experiment. Default is ``True``.
+    """
+    project_name: Optional[str] = None
+    workspace: Optional[str] = None
+    experiment_key: Optional[str] = None
+    api_key: Optional[str] = None
+    online: bool = True
+
+    def __post_init__(self) -> None:
+        if self.project_name is not None:
+            try:
+                import comet_ml  # noqa: F401
+            except ImportError:
+                raise ImportError(
+                    "`comet-ml` is not installed. Either `pip install comet-ml` or set `comet_ml.project_name` to None.")
+
+            if len(self.project_name) == 0:
+                raise ValueError("`comet_ml.project_name` must not be an empty string.")
 
 
 @dataclass
@@ -91,6 +127,7 @@ class TrainArgs(Serializable):
     # logging
     wandb: WandbArgs = field(default_factory=WandbArgs)
     mlflow: MLFlowArgs = field(default_factory=MLFlowArgs)
+    comet_ml: CometMLArgs = field(default_factory=CometMLArgs)
 
     # LoRA
     lora: Optional[LoraArgs] = field(default_factory=LoraArgs)
