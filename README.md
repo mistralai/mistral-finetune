@@ -48,6 +48,29 @@ cd mistral-finetune
 pip install -r requirements.txt
 ```
 
+## Docker
+
+You can use the provided Dockerfile to avoid manual environment setup:
+
+```bash
+# Build the image
+docker build -t mistral-finetune .
+
+# Run single-GPU fine-tuning
+docker run --gpus all \
+  -v /path/to/data:/data \
+  -v /path/to/model:/model \
+  mistral-finetune --config /data/config.yaml
+
+# Run multi-GPU fine-tuning with torchrun
+docker run --gpus all \
+  --entrypoint torchrun \
+  mistral-finetune \
+  --nproc_per_node=4 /app/train.py --config /data/config.yaml
+```
+
+> **Note:** The Docker image is based on `pytorch/pytorch:2.2.0-cuda12.1-cudnn8-devel` and requires NVIDIA GPU with CUDA 12.1+ support. Mount your training data and model weights as volumes.
+
 ## Model download
 
 We recommend fine-tuning one of the official Mistral models which you can download here:
