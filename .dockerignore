@@ -1,0 +1,16 @@
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+dist
+build
+.mypy_cache
+.ruff_cache
+.pytest_cache
+tutorials/
+tests/
+*.md
+!README.md
+LICENSE
