@@ -472,7 +472,7 @@ Generally, a training configuration should fill the following parameters:
 - `no_eval` is a flag to enable or disable intermediate evaluation. Setting it to False enables periodic evaluation during training.
 - `ckpt_freq` defines how often (in steps) to save checkpoints. This specifies the interval at which the model's state is saved.
 - `save_adapters` defines whether to only save the trained LoRA checkpoints or whether the trained LoRA should directly be merged into the base model and saved. **Note**: When setting `save_adapters=False` make sure that you have enough CPU and GPU memory to save the full model on a single process (this is usually only possible for the 7B model).
-- `wandb.key` is used to pass your Weights & Biases (wandb) API key for logging. This allows you to log training metrics to the wandb dashboard.
+ - Your Weights & Biases (wandb) API key must be provided via the `WANDB_API_KEY` environment variable (e.g. `export WANDB_API_KEY=<your-key>`). For security reasons it is **not** read from the YAML config.
 - `wandb.project` defines the wandb project name. This is where the training run will be logged in the wandb interface.
 
 ## Inference
@@ -505,6 +505,15 @@ To use Weights and Biases with `mistral-finetune`, follow these steps:
 ```sh
    pip install wandb
 ```
+
+2. **Authenticate:**
+
+   Provide your API key through the `WANDB_API_KEY` environment variable (recommended) or by running `wandb login`:
+
+```sh
+   export WANDB_API_KEY=<your-key>
+```
+
 ### Viewing Your Logs
 
 Once the training starts, you can monitor the progress in real-time by visiting your wandb project dashboard. All metrics, including training loss, evaluation loss, learning rate, etc., will be logged and visualized.

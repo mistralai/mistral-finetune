@@ -22,7 +22,6 @@ class OptimArgs(Serializable):
 class WandbArgs(Serializable):
     project: Optional[str] = None  # Fill this argument to use wandb.
     offline: bool = False
-    key: Optional[str] = None
     run_name: Optional[str] = None
 
     def __post_init__(self) -> None:
