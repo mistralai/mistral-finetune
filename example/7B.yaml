@@ -32,5 +32,4 @@ run_dir: ""  # Fill
 wandb:
   project: "" # your wandb project name
   run_name: "" # your wandb run name
-  key: "" # your wandb api key
   offline: False
